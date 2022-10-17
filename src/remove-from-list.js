@@ -38,26 +38,20 @@ function removeKFromList(l, k ) {
   // };
   let headList = l[0];
   for (let i=0; i<l.length; i++) {
-    if (l[i].value === k) {
+    if (l[i]/*.value*/ === k) {
       if (i === 0) {
-        for (let j = i+1; j<l.length-1; j++) {
-          l[i] = l[j];
-        };
-        l.pop();
+       l.shift()
       } else if (i === l.length - 1) {
-        // l[i-1].next=null;
         l.pop();
       } else {
-         // if (l[i+1]) {
-            // l[i-1].next = l[i+1];
-            for (let j = i+1; j<l.length-1; j++) {
-              l[i] = l[j];
-            };
-            l.pop()
-         // } 
+         l.splice(i,1);
+         } 
         }
     }
-  };
+    for (let i=0; i<l.length-1; i++) {
+      l[i].next = l[i+1];
+      };
+  
   console.log(l);
   // l = l.filter(elem => elem !== null);
   console.log(headList);
@@ -71,4 +65,4 @@ function removeKFromList(l, k ) {
 module.exports = {
   removeKFromList
 };
-// console.log(removeKFromList([3,1,2,3,4,5],3));
+console.log(removeKFromList([3,1,2,3,4,5],3));
