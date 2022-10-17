@@ -42,9 +42,7 @@ class BinarySearchTree {
 
   has(data) {
     function searchFunc (node, data) {
-      console.log('node data',node, data);
       if (!node) {return false};
-      console.log(node)
       if (node.data == data) {return true};
       if (data > node.data) {
         return searchFunc(node.right, data);
@@ -53,7 +51,6 @@ class BinarySearchTree {
         return searchFunc(node.left, data);
       }
     }
-    console.log('this->', this)
     return searchFunc (this.rootBST, data);
   }
 
@@ -68,33 +65,37 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    // function removeFunc (data, node) {
-    //   if (!node) {return null};
-    //   if (data>node.data) {
-    //     node.right = removeFunc(data, node.right);
-    //   };
-    //   if (data< node.data) {
-    //     node.left = removeFunc(data, node.left);
-    //   };
-    //   if (data === node.data) {
-    //     if ((!node.left) && (!node.right)) {
-    //       return null
-    //     } else if (!node.right) {
-    //       node=node.left
-    //     } else if (!node.left) {
-    //       node = node.right
-    //     } else {
-    //       let maxLeft = node.left;
-    //       while (maxLeft.right) {
-    //         maxLeft = maxLeft.right; 
-    //       };
-    //       node.data = maxLeft.data;
-    //       node.left = removeFunc(maxLeft.data, node.left);
-    //       return node;
-    //      }
-    //   }
-    // }
-    // this.rootBST = removeFunc(data, this.rootBST); 
+    function removeFunc (data, node) {
+      if (!node) {return null};
+      if (data>node.data) {
+        node.right = removeFunc(data, node.right);
+        return node;
+      };
+      if (data< node.data) {
+        node.left = removeFunc(data, node.left);
+        return node;
+      };
+      if (data === node.data) {
+        if ((!node.left) && (!node.right)) {
+          return null
+        } else if (!node.right) {
+          node=node.left;
+          return node;
+        } else if (!node.left) {
+          node = node.right;
+          return node;
+        } else {
+          let maxLeft = node.left;
+          while (maxLeft.right) {
+            maxLeft = maxLeft.right; 
+          };
+          node.data = maxLeft.data;
+          node.left = removeFunc(maxLeft.data, node.left);
+          return node;
+         }
+      }
+    }
+    this.rootBST = removeFunc(data, this.rootBST); 
   }
 
   min() {
@@ -119,41 +120,3 @@ class BinarySearchTree {
 module.exports = {
   BinarySearchTree
 };
-// const tree = new BinarySearchTree();
-// console.log(tree);
-//       console.log(tree.add(2));
-//       console.log(tree);
-//       console.log(tree.root());
-//       console.log(tree.add(3));
-//       console.log(tree.root().data);
-//       console.log(tree.add(4));
-//       console.log(tree.root().data);
-//       console.log(tree.rootBST.right);
-//       console.log(tree.find(4).data);
-//       tree.add(8);
-//       console.log(tree.find(8).data,' 8');
-//       // console.log (tree.root());
-
-const tree = new BinarySearchTree();
-      tree.add(9);
-      tree.add(14);
-      tree.add(2);
-      tree.add(6);
-      tree.add(128);
-      tree.add(8);
-      tree.add(31);
-      tree.add(54);
-      tree.add(1);
-      // tree.remove(14);
-      // tree.remove(8);
-      // tree.remove(9);
-      console.log(tree.find(31).data)
-      console.log(tree.has(14), '!false');
-      console.log(tree.has(8), '!false');
-      console.log(tree.has(9), '!false');
-      console.log(tree.has(2), 'true');
-      console.log(tree.has(6), 'true');
-      console.log(tree.has(128), 'true');
-      console.log(tree.has(31), 'true');
-      console.log(tree.has(54),' true');
-      console.log(tree.has(1), 'true')
